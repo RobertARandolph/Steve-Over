@@ -2,7 +2,7 @@ Quite simple to use.
 
 Example:
 
-	  <div name="steveover" maxrows="3" theme="soft_rounded">
+	  <div name="steveover" maxrows="3" class="soft_rounded">
 	    <img alt="Glossy low" src="glossy sharpen low.jpg" width="825" height="550" />
 	    <img alt="Glossy medium" src="glossy sharpen medium.jpg" width="825" height="550"/>
 	    <img alt="Glossy high" src="glossy sharpen high.jpg" width="825" height="550"/>

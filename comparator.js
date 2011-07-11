@@ -95,7 +95,7 @@ function increment_uid ()
 
 function get_theme( div_to_use, theme_elements )
 {
-    var cur_theme = div_to_use.getAttribute( "theme" );
+    var cur_theme = div_to_use.getAttribute( "class" );
 
     if ( !cur_theme )
 	return "default_theme";
