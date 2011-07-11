@@ -156,22 +156,22 @@ function link_writer ( div_to_use, theme_to_use, max_rows, imgs, iterations )
     var optimal_cells = Math.ceil( iterations / max_rows );
     var link_container = document.createElement("div");
     var link_table = document.createElement("table");
+    var cur_link = 0;
     
-    link_container.setAttribute("class", "link_container");
+    link_container.setAttribute("class", theme_to_use + "_link_container");
     link_container.setAttribute("style", "width: " + div_width + "px;");
 
     div_to_use.appendChild(link_container);
 
-    for (var i = 1; i <= max_rows; i++)
+    for (var i = 0; i < max_rows; i++)
     {
 	var cur_row = link_table.insertRow(-1); /* -1 inserts in last position */
 
-	for (var k = 1; k <= optimal_cells; k++)
+	for (var k = 0; k < optimal_cells; k++)
 	{
 	    var link_replacer = document.createElement("a");
-	    var cur_link = (i * k) - 1;
 
-	    if (cur_link > iterations)
+	    if (cur_link >= iterations)
 		break; 
 
 	    link_replacer.setAttribute("href", "#");
@@ -181,10 +181,10 @@ function link_writer ( div_to_use, theme_to_use, max_rows, imgs, iterations )
 	    /* Allow for left and right links to be floated or aligned to edges if wanted. */
 	    switch ( k )
 	    {
-	    case 1:
+	    case 0:
 		link_replacer.setAttribute("class", theme_to_use + "_first_link "   + theme_to_use + "_link");
 		break;
-	    case optimal_cells:
+	    case optimal_cells - 1:
 		link_replacer.setAttribute("class", theme_to_use + "_last_link "    + theme_to_use + "_link");
 		break;
 	    default:
@@ -192,6 +192,7 @@ function link_writer ( div_to_use, theme_to_use, max_rows, imgs, iterations )
 	    }
 
 	    cur_row.insertCell(-1).appendChild( link_replacer ); /* -1 inserts in last position */
+	    cur_link++;
 	}
     }
 

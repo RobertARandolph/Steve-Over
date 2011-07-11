@@ -19,6 +19,12 @@
 
     padding-top: 1px;
     padding-bottom: 2px;
+
+    margin: 0 auto;
+}
+
+.soft_rounded_link_container table tr td
+{
 }
 
 a.soft_rounded_link:hover
