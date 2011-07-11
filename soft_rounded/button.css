@@ -1,0 +1,40 @@
+.soft_rounded_link
+{
+    display: block;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    border: 2px solid rgb(204, 204, 204);
+
+    width: 150px;
+    
+    text-align: center;
+    text-decoration: none;
+    font-family: Arial;
+    font-size: 11pt;
+
+    background-color: rgb(249, 249, 249);
+    color: rgb(101, 173, 210);
+
+    padding-top: 1px;
+    padding-bottom: 2px;
+}
+
+a.soft_rounded_link:hover
+{
+    border: 2px solid rgb(253, 203, 9);
+
+    background-color: rgb(253, 249, 225);
+    color: rgb(220, 162, 88);
+}
+
+.soft_rounded_first_link
+{
+    float: left;
+}
+
+.soft_rounded_last_link
+{
+    float: right;
+}

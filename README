@@ -1,0 +1,22 @@
+Quite simple to use.
+
+Example:
+
+	  <div name="steveover" maxrows="3" theme="soft_rounded">
+	    <img alt="Glossy low" src="glossy sharpen low.jpg" width="825" height="550" />
+	    <img alt="Glossy medium" src="glossy sharpen medium.jpg" width="825" height="550"/>
+	    <img alt="Glossy high" src="glossy sharpen high.jpg" width="825" height="550"/>
+	    <img alt="Matte low" src="matte sharpen low.jpg" width="825" height="550"/>
+	    <img alt="Matte medium" src="matte sharpen medium.jpg" width="825" height="550"/>
+	    <img alt="Matte high" src="matte sharpen high.jpg" width="825" height="550"/>
+	    <img alt="Screen low" src="screen sharpen low.jpg" width="825" height="550"/>
+	    <img alt="Screen medium" src="screen sharpen medium.jpg" width="825" height="550"/>
+	    <img alt="Screen high" src="screen sharpen high.jpg" width="825" height="550"/>
+	    <img alt="No Sharpen" src="no sharpen.jpg" width="825" height="550"/>
+	  </div>
+
+maxrows is the most rows allowed in the link box.
+
+theme is the name of a directory containing box.css, img.css, button.css
+
+You can put comparators together in a table for interesting effects. 
