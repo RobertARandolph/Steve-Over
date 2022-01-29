@@ -25,6 +25,8 @@
 
 .soft_rounded_link_container table tr td
 {
+	background: rgb(239, 239, 239);
+	padding: 0 0;  
 }
 
 a.soft_rounded_link:hover
