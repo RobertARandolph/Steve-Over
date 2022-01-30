@@ -19,9 +19,9 @@
 
     padding-top: 1px;
     padding-bottom: 2px;
-
-    margin: 0 auto;
+    margin: 5px;
 }
+
 
 .soft_rounded_link_container table tr td
 {
@@ -35,14 +35,4 @@ a.soft_rounded_link:hover
 
     background-color: rgb(253, 249, 225);
     color: rgb(220, 162, 88);
-}
-
-.soft_rounded_first_link
-{
-    float: left;
-}
-
-.soft_rounded_last_link
-{
-    float: right;
 }

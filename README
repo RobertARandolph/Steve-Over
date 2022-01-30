@@ -2,7 +2,7 @@ Quite simple to use.
 
 Example:
 
-	  <div name="steveover" maxrows="3" class="soft_rounded">
+	  <div name="steveover" maxitemsrow="3" class="soft_rounded">
 	    <img alt="Glossy low" src="glossy sharpen low.jpg" width="825" height="550" />
 	    <img alt="Glossy medium" src="glossy sharpen medium.jpg" width="825" height="550"/>
 	    <img alt="Glossy high" src="glossy sharpen high.jpg" width="825" height="550"/>
@@ -15,7 +15,7 @@ Example:
 	    <img alt="No Sharpen" src="no sharpen.jpg" width="825" height="550"/>
 	  </div>
 
-maxrows is the most rows allowed in the link box.
+maxitemsrow is the most items allowed per row in the current link box.
 
 theme is the name of a directory containing box.css, img.css, button.css
 

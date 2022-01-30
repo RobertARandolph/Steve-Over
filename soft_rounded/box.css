@@ -12,8 +12,10 @@
     padding: 9px;
 }
 
-.soft_rounded_box table
-{
-background: rgb(239, 239, 239);
-border: none;
+.soft_rounded_link_container {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
 }

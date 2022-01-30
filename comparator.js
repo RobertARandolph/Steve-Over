@@ -19,7 +19,7 @@ window.onload = function ()
 {
     var main_div = document.getElementsByName("steveover");
     var main_div_length = main_div.length;
-    var max_rows;
+    var max_items_row;
     var imgs;
     var imgs_length;
     var theme_to_use;
@@ -28,19 +28,20 @@ window.onload = function ()
 
     for ( var i = 0; i < main_div_length; i++) 
     {
-	max_rows = ( main_div[i].getAttribute("maxrows") > 0 ) ? main_div[i].getAttribute("maxrows") : 2;
+	    max_items_row = ( main_div[i].getAttribute("maxitemsrow") > 0 ) ? main_div[i].getAttribute("maxitemsrow") : 4;
+        imgs = main_div[i].getElementsByTagName("img");
+        imgs_length = imgs.length; /* JS re-evals the imgs.length in the loops as you delete things. You have to store it statically. */
 
-	imgs = main_div[i].getElementsByTagName("img");
-	imgs_length = imgs.length; /* JS re-evals the imgs.length in the loops as you delete things. You have to store it statically. */
+        theme_to_use = get_theme( main_div[i], theme_elements );
+        add_theme ( theme_to_use, theme_elements );
+        main_div[i].setAttribute("class", theme_to_use + "_box");
 
-	theme_to_use = get_theme( main_div[i], theme_elements );
-	add_theme ( theme_to_use, theme_elements );
-	main_div[i].setAttribute("class", theme_to_use + "_box");
+        w = img_maker( main_div[i], theme_to_use, imgs, imgs_length );
 
-	img_maker( main_div[i], theme_to_use, imgs, imgs_length );
-	link_writer( main_div[i], theme_to_use, main_div[i].getAttribute( "maxrows"), imgs, imgs_length );
-	img_fucker( main_div[i], imgs, imgs_length );
-	increment_uid();
+        main_div[i].setAttribute("width", w);
+        link_writer( main_div[i], theme_to_use, max_items_row, imgs, imgs_length );
+        img_fucker( main_div[i], imgs, imgs_length );
+        increment_uid();
     }
 }
 
@@ -64,10 +65,10 @@ function img_maker ( div_to_use, theme_to_use, imgs, iterations )
 
     for (var i = 0; i < iterations; i++) 
     {
-	if(imgs[i].getAttribute("width") > div_width)
-	    div_width = imgs[i].getAttribute("width");
-	if(imgs[i].getAttribute("height") > div_height)
-	    div_height = imgs[i].getAttribute("height");
+        // if(imgs[i].getAttribute("width") > div_width)
+        div_width = imgs[i].getAttribute("width");
+        if(imgs[i].getAttribute("height") > div_height)
+            div_height = imgs[i].getAttribute("height");
     }
 
     div_to_use.setAttribute("style", "width: " + div_width + "px; height: auto;");
@@ -76,6 +77,8 @@ function img_maker ( div_to_use, theme_to_use, imgs, iterations )
     new_img.setAttribute("id", "comparator" + imgs_uid);
     new_img.setAttribute("class", theme_to_use + "_img");
     div_to_use.appendChild(new_img);
+
+    return div_width;
 }
 
 /* This is so we strictly control the UID. This gets messy quick.
@@ -151,57 +154,45 @@ function add_theme ( theme, theme_elements )
  * Appearances can be... deceptive. 
  */
 
-function link_writer ( div_to_use, theme_to_use, max_rows, imgs, iterations ) 
+function link_writer ( div_to_use, theme_to_use, max_items_row, imgs, iterations ) 
 {
-    var optimal_cells = Math.ceil( iterations / max_rows );
-    var link_container = document.createElement("div");
-    var link_table = document.createElement("table");
-    var cur_link = 0;
+    var cur_link_container = document.createElement("div");
+    var num_imgs = imgs.length - 1; /* remember, we added a new image stack already */
     
-    link_container.setAttribute("class", theme_to_use + "_link_container");
-    link_container.setAttribute("style", "width: " + div_width + "px;");
+    cur_link_container.setAttribute("class", theme_to_use + "_link_container");
 
-    div_to_use.appendChild(link_container);
+    link_containers = []
+    var elements_left = true;
 
-    for (var i = 0; i < max_rows; i++)
-    {
-	var cur_row = link_table.insertRow(-1); /* -1 inserts in last position */
+        for (var i = 0; i < num_imgs; i++)
+        {
+            elements_left = true;
+            var link_replacer = document.createElement("a");
 
-	for (var k = 0; k < optimal_cells; k++)
-	{
-	    var link_replacer = document.createElement("a");
+            link_replacer.setAttribute("href", "#");
+            link_replacer.setAttribute("onmouseover", "mouseOverImage(\'comparator" + imgs_uid + "\', \'" + imgs[i].getAttribute("src") + "\')");
+            link_replacer.innerHTML = imgs[i].getAttribute("alt");
+            link_replacer.setAttribute("class", theme_to_use + "_link");
 
-	    if (cur_link >= iterations)
-		break; 
+            cur_link_container.appendChild( link_replacer ); /* -1 inserts in last position */
 
-	    link_replacer.setAttribute("href", "#");
-	    link_replacer.setAttribute("onmouseover", "mouseOverImage(\'comparator" + imgs_uid + "\', \'" + imgs[cur_link].getAttribute("src") + "\')");
-	    link_replacer.innerHTML = imgs[cur_link].getAttribute("alt");
+            if ((i+1) % max_items_row == 0) {
+                link_containers.push(cur_link_container);
+                cur_link_container = document.createElement("div");
+                cur_link_container.setAttribute("class", theme_to_use + "_link_container");
+                elements_left = false;
+            }
+        }
+    if (elements_left)
+        link_containers.push(cur_link_container);
 
-	    /* Allow for left and right links to be floated or aligned to edges if wanted. */
-	    switch ( k )
-	    {
-	    case 0:
-		link_replacer.setAttribute("class", theme_to_use + "_first_link "   + theme_to_use + "_link");
-		break;
-	    case optimal_cells - 1:
-		link_replacer.setAttribute("class", theme_to_use + "_last_link "    + theme_to_use + "_link");
-		break;
-	    default:
-		link_replacer.setAttribute("class", theme_to_use + "_middle_links " + theme_to_use + "_link");
-	    }
-
-	    cur_row.insertCell(-1).appendChild( link_replacer ); /* -1 inserts in last position */
-	    cur_link++;
-	}
+    for (i = 0; i < link_containers.length; i++) {
+        div_to_use.appendChild(link_containers[i]);
     }
 
-    link_table.setAttribute("width", "100%");
-    link_table.setAttribute("padding", "0");
-    link_table.setAttribute("margin", "0");
-
-    link_container.appendChild(link_table);
 }
+
+
 
 /* Deleting the old images
  *
